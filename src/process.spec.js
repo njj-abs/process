@@ -9,6 +9,11 @@ test('process', () => {
 			max: 10,
 			step: 2,
 		},
+		b: {
+			type: 'split',
+			value: 5,
+			count: 10,
+		},
 	};
 
 	peek(process(data));
