@@ -2,7 +2,16 @@ import { map, range } from '@laufire/utils/collection';
 import { rndBetween } from '@laufire/utils/random';
 
 const types = {
-	random: ({ min, max }) => rndBetween(min, max + 1),
+	random: ({ min, max, step = 1 }) => {
+		const minWithStep = min - (min % step);
+		const minValue = minWithStep ? minWithStep : minWithStep + step;
+
+		const randomRange = rndBetween(minValue, max + 1);
+
+		const result = randomRange - (randomRange % step);
+
+		return result;
+	},
 
 	split: ({ value, count }) => {
 		const half = Math.floor(count / value);
