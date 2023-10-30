@@ -3,6 +3,8 @@
  * Helper functions for testing.
  */
 
+const { map, range } = require('@laufire/utils/collection');
+
 const expectMockCalls = (fn) => (expectation) =>
 	expect(fn.mock.calls).toEqual(expectation);
 
@@ -12,7 +14,11 @@ const forceRequire = (module) => {
 	return require(module);
 };
 
+const retry = (fn, retryCount = 100) =>
+	map(range(0, retryCount), (value) => fn(value));
+
 module.exports = {
 	expectMockCalls,
 	forceRequire,
+	retry,
 };
