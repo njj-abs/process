@@ -6,7 +6,7 @@ import { rndBetween } from '@laufire/utils/random';
 import types from './types';
 import { retry } from '../../test/helpers';
 
-const hundred = 100;
+const maxValue = 100;
 
 describe('types', () => {
 	test('random', () => {
@@ -26,10 +26,11 @@ describe('types', () => {
 	});
 
 	test('split', () => {
-		const getPositiveValues = (value) =>
-			value.filter((val) => val >= 0).length;
+		const isValueInRange = (result, max) =>
+			result.every((item) => item >= 0 && item <= max) ;
 
-		const getParam = () => [rndBetween(0, hundred), rndBetween(1, hundred)];
+		const getParam = () =>
+			[rndBetween(0, maxValue), rndBetween(1, maxValue)];
 
 		retry(() => {
 			const data = {
@@ -41,7 +42,7 @@ describe('types', () => {
 
 			expect(result.length).toEqual(data.count);
 			expect(result.reduce(sum)).toEqual(data.value);
-			expect(getPositiveValues(result)).toBe(data.count);
+			expect(isValueInRange(result, data.value)).toEqual(true);
 		});
 	});
 });
