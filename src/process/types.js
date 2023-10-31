@@ -1,4 +1,4 @@
-import { map, range } from '@laufire/utils/collection';
+import { range } from '@laufire/utils/collection';
 import { rndBetween } from '@laufire/utils/random';
 
 const types = {
@@ -23,6 +23,4 @@ const types = {
 	},
 };
 
-const process = (data) => map(data, (value) => types[value.type](value));
-
-export default process;
+export default types;
